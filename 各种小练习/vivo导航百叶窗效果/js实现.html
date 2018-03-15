@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>js实现</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            width: 100%;
+            height: 80px;
+            border: 1px solid black;
+        }
+        
+        .nav {
+            width: 95%;
+            height: 80px;
+            min-width: 1120px;
+            margin: 0 auto;
+            border: 1px solid black;
+        }
+        
+        .nav .left {
+            float: left;
+            width: 980px;
+            height: 80px;
+            border: 1px solid #aaa;
+        }
+        
+        .logo {
+            float: left;
+            padding: 0 50px;
+            height: 80px;
+            width: 95px;
+            position: relative;
+        }
+        
+        .logo a {
+            display: block;
+            text-decoration: none;
+            width: 95px;
+            height: 25px;
+            background: url("./images/vivo-gb-logo.png");
+            position: absolute;
+            top: 50%;
+            margin-top: -12px;
+        }
+        
+        .navList {
+            float: left;
+            padding: 0 15px;
+            display: table;
+        }
+        
+        .navList li {
+            display: table-cell;
+            vertical-align: middle;
+            font-family: "Microsoft YaHei";
+            font-size: 18px;
+            font-weight: normal;
+        }
+        
+        .navList li:nth-child(2) {
+            position: relative;
+        }
+        
+        .navList li a {
+            text-decoration: none;
+            display: block;
+            height: 80px;
+            padding: 0 20px;
+            line-height: 80px;
+            color: black;
+        }
+        
+        .navList a:hover {
+            background-color: #0D5DF2
+        }
+        
+        .twoNav {
+            position: absolute;
+            width: 100%;
+            height: 290px;
+            border: 1px solid red;
+            background-color: white;
+        }
+        
+        .twoNavContent {
+            width: 1000px;
+            height: 290px;
+            margin: 0 auto;
+        }
+        
+        .twoNavContent dl {
+            float: left;
+            padding: 20px;
+            width: 160px;
+        }
+        
+        .twoNavContent dl dt {
+            width: 160px;
+            height: 30px;
+            line-height: 30px;
+            font-weight: bold;
+            font-family: "Microsoft YaHei";
+            position: relative;
+        }
+        
+        .twoNavContent dl dt a {
+            position: absolute;
+            left: 15px;
+            text-decoration: none;
+            color: black;
+            opacity: 0;
+        }
+        
+        .twoNavContent dl dd:nth-of-type(1) {
+            margin-top: 10px;
+        }
+        
+        .twoNavContent dl dd {
+            width: 160px;
+            height: 40px;
+            line-height: 40px;
+            font-family: "Microsoft YaHei";
+            position: relative;
+        }
+        
+        .twoNavContent dl dd a {
+            position: absolute;
+            left: 15px;
+            text-decoration: none;
+            color: #AAACAE;
+            opacity: 0;
+        }
+    </style>
+    <script src="../js/move.js"></script>
+    <script>
+        window.onload = a;
+
+        function a() {
+            var div = document.getElementsByClassName("twoNav")[0];
+            var dl = document.getElementsByTagName("dl");
+
+            var liConduct = document.getElementsByTagName("ul")[0].childNodes[3];
+
+            liConduct.onmouseover = function() {
+                div.style.display = "block";
+                startMove(div, {
+                    "opacity": "100"
+                }, function() {
+                    console.log(dl.length);
+                    //使用一个循环，为每个dl实行delay函数
+                    for (var i = 0, len = dl.length; i < len; i++) {
+                        delay(dl[i]);
+                    }
+                });
+            }
+
+            //每隔0.1s让一个元素进入
+            function delay(em) {
+                var elementChild = em.firstElementChild;
+                console.log(elementChild.nextElementSibling);
+                setTimeout(delayIn, 100);
+
+                //用setTimeout替代setTimeInter
+                function delayIn() {
+                    startMove(elementChild.querySelector("a"), {
+                        "left": 0,
+                        "opacity": 100
+                    }, null);
+                    elementChild = elementChild.nextElementSibling;
+                    //console.log(elementChild);
+                    if (elementChild) {
+                        console.log(elementChild);
+                        setTimeout(delayIn, 100);
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="nav">
+            <div class="left">
+                <div class="logo">
+                    <a href=""></a>
+                </div>
+                <ul class="navList">
+                    <li><a href="">首页</a></li>
+                    <li><a href="">产品</a></li>
+                    <li><a href="">商城</a></li>
+                    <li><a href="">体验中心</a></li>
+                    <li><a href="">FunTouch OS</a></li>
+                    <li><a href="">社区</a></li>
+                    <li><a href="">服务</a></li>
+                </ul>
+            </div>
+            <div class="right"></div>
+        </div>
+        <div class="twoNav" style="display:block;opacity:1;">
+            <div class="twoNavContent">
+                <dl>
+                    <dt><a href="">最新</a></dt>
+                    <dd><a href="">X9L</a></dd>
+                    <dd><a href="">Y53</a></dd>
+                    <dd><a href="">Xplay6磨砂黑</a></dd>
+                    <dd><a href="">X9i</a></dd>
+                    <dd><a href="">Y66</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="">Xplay系列</a></dt>
+                    <dd><a href="">Xplay6磨砂黑</a></dd>
+                    <dd><a href="">Xplay6</a></dd>
+                    <dd><a href="">Xplay5旗舰版</a></dd>
+                    <dd><a href="">Xplay5</a></dd>
+                    <dd><a href="">Xplay3s</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="">X9系列</a></dt>
+                    <dd><a href="">X9L</a></dd>
+                    <dd><a href="">X9I</a></dd>
+                    <dd><a href="">X9</a></dd>
+                    <dd><a href="">X3</a></dd>
+                    <dd><a href="">X3L</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="">Y系列</a></dt>
+                    <dd><a href="">Y53</a></dd>
+                    <dd><a href="">Y66</a></dd>
+                    <dd><a href="">Y57</a></dd>
+                    <dd><a href="">Y55</a></dd>
+                    <dd><a href="">Y51</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="">其他系列</a></dt>
+                    <dd><a href="">V3全网通</a></dd>
+                    <dd><a href="">V3max全网通</a></dd>
+                    <dd><a href="">V3max</a></dd>
+                    <dd><a href="">V3</a></dd>
+                </dl>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

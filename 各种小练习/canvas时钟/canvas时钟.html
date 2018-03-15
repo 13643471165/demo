@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas时钟</title>
+    <style>
+        body{
+            background: black;
+        }
+
+        #canvas{
+            background: white;
+        }
+    </style>
+    <script>
+        window.onload =function(){
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext('2d');
+
+           setInterval(function(){
+               time(context);
+           },1000);
+
+            function time(context){
+                var date = new Date();
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var seconds = date.getSeconds();
+                var radius = 150;
+
+                context.clearRect(0,0,canvas.width,canvas.height);
+
+                for(var i = 0;i < 60;i++){
+                    context.beginPath();
+
+                    context.moveTo(300,300);
+                    context.arc(300,300,radius,i*6*Math.PI/180,(i+1)*6*Math.PI/180,false);
+
+                    context.closePath();
+                    context.stroke();
+                }
+
+                context.fillStyle = "white";
+
+                context.beginPath();
+
+                context.arc(300,300,radius*19/20,0,2*Math.PI,false);
+                context.fill();
+
+                context.closePath();
+
+                for(var j = 0;j < 12;j++){
+                    context.beginPath();
+
+                    context.moveTo(300,300);
+                    context.arc(300,300,radius,j*30*Math.PI/180,(j+1)*30*Math.PI/180,false);
+
+                    context.closePath();
+                    context.stroke();
+                }
+
+                context.beginPath();
+
+                context.arc(300,300,radius*18/20,0,2*Math.PI,false);
+                context.fill();
+
+                context.closePath();
+
+                context.beginPath();
+
+                context.moveTo(300,300);
+                context.arc(300,300,radius*17/20,(-90+seconds*6)*Math.PI/180,(-90+seconds*6)*Math.PI/180,false);
+                context.stroke();
+
+                context.closePath();
+
+                context.save();
+                context.lineWidth = 2;
+                context.beginPath();
+
+                context.moveTo(300,300);
+                context.arc(300,300,radius*16/20,(-90+minutes*6)*Math.PI/180,(-90+minutes*6)*Math.PI/180,false);
+                context.stroke();
+                
+                context.closePath();
+                context.restore();
+
+                context.save();
+                context.lineWidth = 3;
+                context.beginPath();
+                context.moveTo(300,300);
+                context.arc(300,300,radius*15/20,(-90+hours*30+minutes/12)*Math.PI/180,(-90+hours*30+minutes/12)*Math.PI/180,false);
+                context.stroke();
+
+                context.closePath();
+                context.restore();
+            }
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+</body>
+</html>

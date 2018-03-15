@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .content{
+        width: 600px;
+        height: 450px;
+        box-shadow: 3px 3px 5px #646566;
+        border: 1px solid #646566;
+        margin: 0 auto;
+    }
+
+    .column{
+        display: table;
+        border-bottom: 2px solid #B8B9BA;
+    }
+
+    .column span{
+        display: table-cell;
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+        padding-left: 5px;
+    }
+
+    .musicList{
+        display: table;
+        -webkit-user-select: none;
+    }
+
+    .musicList span{
+        display: table-cell;
+        width: 200px;
+        height: 50px;
+        line-height: 50px;
+        padding-left: 5px;
+    }
+
+    .musicList:hover{
+        background: #9AA2A9;
+    }
+    </style>
+    <script>
+        window.onload =function(){
+            var content = document.getElementsByClassName("content")[0]
+            var div =document.getElementsByClassName("musicList");
+            var img =document.getElementsByTagName("img")[0];
+            var offsetY =document.getElementsByClassName("content")[0].offsetTop;
+            var current = null;
+            var topOrbot = true;
+
+            for(var i = 0;i < div.length;i++){
+                div[i].ondragstart = function(event){
+                    current =this;
+                    var ev = event || window.event;
+                    
+                    ev.dataTransfer.effectAllowed  = "copy";
+                    ev.dataTransfer.setDragImage(img,0,0);
+                    ev.dataTransfer.setData("name","hello");
+                   
+                }
+
+                div[i].ondragover =function(event){
+                    var ev = event || window.event;
+                    ev.preventDefault();
+                    var top = (ev.clientY - offsetY - 50) % 50;
+                    console.log(top);
+                    if(top >= 25){
+                        this.style.borderBottom = "1px dashed black";
+                        this.style.borderTop = "none";
+                        topOrbot=false;
+                    }else if(top < 25 && top >= 1 ){
+                        this.style.borderTop = "1px dashed black";
+                        this.style.borderBottom = "none";
+                        topOrbot=true;
+                    } 
+                    current.style.border = "none";
+                }
+
+                div[i].ondragleave =function(event){
+                    this.style.border = "none";
+                }
+
+                div[i].ondrop =function(){
+                    if(topOrbot){
+                        content.insertBefore(current,this);
+                    }else{
+                        content.insertBefore(current,this.nextElementSibling);
+                    }
+                    this.style.border="none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="content">
+        <div class="column">
+            <span>歌曲</span>
+            <span>歌手</span>
+            <span>专辑</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>风吹麦浪</span>
+            <span>李建</span>
+            <span>《想念你》</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>你还要我怎样</span>
+            <span>薛之谦</span>
+            <span>《意外》</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>喜欢你</span>
+            <span>邓紫棋</span>
+            <span>《喜欢你》</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>后来</span>
+            <span>刘若英</span>
+            <span>《我等你》</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>勇气</span>
+            <span>梁静茹</span>
+            <span>《勇气》</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>不让我的眼泪陪我过夜</span>
+            <span>齐秦</span>
+            <span>《思路》</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>他一定很爱你</span>
+            <span>阿杜</span>
+            <span>《天黑》</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>夜夜夜夜</span>
+            <span>齐秦</span>
+            <span>《丝路》</span>
+        </div>
+        <div class="musicList" draggable="true">
+            <span>安和桥</span>
+            <span>宋冬野</span>
+            <span>《安河桥北》</span>
+        </div>
+    </div>
+    <img alt="" src="./images/music.jpg" width="40px">
+</body>
+</html>

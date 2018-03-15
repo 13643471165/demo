@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文字渐显</title>
+    <style>
+        body{
+            background: black;
+        }
+
+        #canvas{
+            background: white;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext('2d');
+            var timer = null;
+            str = "孙"
+            var number = 0;
+
+            context.fillStyle = "rgba(244,244,8,1)";
+            context.font = "300px Arial";
+            context.textBaseline = "middle";
+            context.textAlign = "center"
+            context.fillText(str,300,300);
+
+            var imgData = context.getImageData(canvas.width/2 - context.measureText(str).width/2,canvas.height/2 - 150,300,300);
+            context.clearRect(0,0,canvas.width,canvas.height);
+            var creImageData = context.createImageData(300,300);
+
+            var arr = getRand(300*300,300*300/10);
+
+            timer = setInterval(function(){
+                context.clearRect(0,0,canvas.width,canvas.height);
+                for(var i = 0 ; i < arr[number].length ; i++){
+                    creImageData.data[4*arr[number][i]] = imgData.data[4*arr[number][i]];
+                    creImageData.data[4*arr[number][i]+1] = imgData.data[4*arr[number][i]+1];
+                    creImageData.data[4*arr[number][i]+2] = imgData.data[4*arr[number][i]+2];
+                    creImageData.data[4*arr[number][i]+3] = imgData.data[4*arr[number][i]+3];
+                }
+                context.putImageData(creImageData,canvas.width/2 - context.measureText(str).width/2,canvas.height/2 - 150);
+                if( number > 9 ){
+                    clearInterval(timer);
+                }else{
+                    number++;
+                }
+            },500);
+
+            context.putImageData(creImageData,canvas.width/2 - context.measureText(str).width/2,canvas.height/2 - 150/2);
+
+            function getRand(sum,num){
+                var times = sum/num;
+                var sumarr = [];
+                var arrs = [];
+                var arr = [];
+                for(var i = 0;i < sum;i++){
+                    sumarr[i] = i;
+                }
+                for(var i = 0;i < times;i++){
+                    for(var j = 0;j < num;j++){
+                        arr.push(sumarr.splice(Math.floor(Math.random()*sumarr.length),1));
+                    }
+                    arrs[i]= arr;
+                    arr = [];
+                }
+                return arrs;
+            }
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="600" height="600"></canvas>
+</body>
+</html>

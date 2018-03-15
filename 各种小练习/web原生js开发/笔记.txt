@@ -1,0 +1,2 @@
+1.获取显示器的分辨率
+	宽度：innerWidth 高度：innerHeight

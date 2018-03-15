@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>后台登录</title>
+<style>
+    #loginBox{width: 440px;height: 250px;border: 1px solid #7B7B77;position: absolute;top: 50%;left: 50%;margin-left: -220px;margin-top: -125px;
+        text-align: center;}
+    header{border-bottom: 1px solid #7B7B77;height: 30px;line-height: 30px;}
+    div{position: relative;margin-top: 20px;}
+    div:first-child{margin-top: 40px;}
+    .loginInput{border-radius: 5px;width: 170px;height: 35px;outline: none;padding-left: 40px;}
+    img{position: absolute;top: 5px;left: 120px;}
+    .loginUser{width:30px;height: 30px;}
+    .loginBtn{width: 70px;height: 35px;margin-top: 20px;}
+</style>
+</head>
+<body>
+    <div id="loginBox">
+        <header>后台登录</header>
+        <form action="adminLogin" method="post">
+            <div><input type="text" name="username" class="loginInput"><img src="./images/user.png" class="loginUser"></img></div>
+            <div><input type="password" name="password" class="loginInput"><img src="./images/password.png" class="loginUser"></img></div>
+            <input type="submit" value="登录" class="loginBtn">
+        </form>
+    </div>
+</body>
+</html>
